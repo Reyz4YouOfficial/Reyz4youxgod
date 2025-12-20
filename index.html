@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reyz4You XGod - Official Store</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --bg-color: #0f172a; 
+            --card-bg: #1e293b;
+            --text-white: #f8fafc;
+            --wa-green: #25d366;
+            --accent: #38bdf8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: var(--card-bg);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo { font-weight: bold; font-size: 1.1rem; color: var(--primary); letter-spacing: 1px; }
+
+        /* Navigation Logic */
+        .page { display: none; padding: 20px; padding-bottom: 100px; max-width: 500px; margin: 0 auto; animation: fadeIn 0.3s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- DASHBOARD STYLES --- */
+        .welcome-text { text-align: center; margin-bottom: 20px; font-weight: 700; font-size: 1.1rem; }
+        .video-container { width: 100%; border-radius: 15px; overflow: hidden; margin-bottom: 20px; border: 1px solid #334155; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        video { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
+        
+        .social-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 25px; }
+        .social-item { display: flex; flex-direction: column; align-items: center; background: var(--card-bg); padding: 12px 5px; border-radius: 12px; text-decoration: none; color: white; font-size: 0.65rem; border: 1px solid #334155; transition: 0.2s; }
+        .social-item:active { transform: scale(0.9); }
+        
+        .section-title { margin: 25px 0 12px; font-size: 0.85rem; color: #94a3b8; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+        /* GRUB SECTION */
+        .grub-btn { display: flex; align-items: center; justify-content: space-between; padding: 12px; border-radius: 14px; text-decoration: none; color: white; background: var(--card-bg); border: 1px solid #334155; margin-bottom: 10px; }
+        .grub-pp { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; margin-right: 12px; border: 2px solid var(--primary); background: #334155; }
+
+        /* LIST CARD STYLES */
+        .list-grid { display: flex; flex-direction: column; gap: 10px; }
+        .item-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #334155;
+        }
+        .item-info h4 { margin: 0; font-size: 0.95rem; color: var(--text-white); }
+        .item-info .spek { font-size: 0.75rem; color: #94a3b8; margin: 4px 0; line-height: 1.4; }
+        .item-info p { margin: 4px 0 0; font-size: 0.9rem; color: var(--accent); font-weight: bold; }
+        
+        .btn-beli {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-beli:active { transform: scale(0.9); background: #4f46e5; }
+
+        /* CATEGORY CARDS (AKUN) */
+        .cat-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #334155;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* BOTTOM NAV - 5 ITEMS */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: var(--card-bg);
+            height: 75px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #334155;
+            z-index: 1000;
+            padding: 0 5px;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #94a3b8;
+            font-size: 0.6rem;
+            background: none; border: none;
+            cursor: pointer;
+            flex: 1;
+            transition: 0.3s;
+        }
+        .nav-item.active { color: var(--primary); }
+        .nav-item i { margin-bottom: 4px; width: 20px; height: 20px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">REYZ4YOU XGOD</div>
+        <i data-lucide="bell"></i>
+    </header>
+
+    <div id="home" class="page active">
+        <div class="welcome-text">Selamat Datang Di Toko Reyz4You XGod</div>
+        <div class="video-container">
+            <video autoplay muted loop playsinline>
+                <source src="https://files.catbox.moe/nomfwn.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="social-grid">
+            <a href="https://wa.me/6281929461281" class="social-item"><i data-lucide="message-circle" style="color:var(--wa-green)"></i><span>WhatsApp</span></a>
+            <a href="https://www.instagram.com/rey_how_are_you?igsh=MXJsMWlrYXRqcHkw" class="social-item"><i data-lucide="instagram" style="color:#e1306c"></i><span>IG</span></a>
+            <a href="https://t.me/Reyz4Youu" class="social-item"><i data-lucide="send" style="color:#0088cc"></i><span>Telegram</span></a>
+            <a href="https://www.tiktok.com/@reyz4you_offc?_r=1&_t=ZS-92NDLqKUQ0T" class="social-item"><i data-lucide="music-2"></i><span>TikTok</span></a>
+        </div>
+        <div class="section-title"><i data-lucide="users" size="16"></i> Grup Komunitas</div>
+        <a href="https://chat.whatsapp.com/BXFzXBcsOOVFTqYgnrslya" class="grub-btn">
+            <div style="display:flex; align-items:center;">
+                <img src="https://files.catbox.moe/70uo8l.jpg" class="grub-pp" alt="PP">
+                <span>𝙏𝙚𝙖𝙢 𝙓𝙂𝙊𝘿 || 𝙏𝙤𝙤𝙡𝙨 𝘾𝙮𝙗𝙚𝙧 𝙆𝙞𝙡𝙡𝙚𝙧</span>
+            </div>
+            <i data-lucide="chevron-right" size="18"></i>
+        </a>
+        <a href="LINK_GRUB_2" class="grub-btn">
+            <div style="display:flex; align-items:center;">
+                <img src="https://files.catbox.moe/9wezwv.jpg" class="grub-pp" alt="PP">
+                <span>Grub 2 XGod Tech</span>
+            </div>
+            <i data-lucide="chevron-right" size="18"></i>
+        </a>
+        <a href="LINK_GRUB_3" class="grub-btn">
+            <div style="display:flex; align-items:center;">
+                <img src="https://files.catbox.moe/9wezwv.jpg" class="grub-pp" alt="PP">
+                <span>Grub 3 Official</span>
+            </div>
+            <i data-lucide="chevron-right" size="18"></i>
+        </a>
+    </div>
+
+    <div id="panel" class="page">
+        <h3 style="margin-top: 0;">Katalog Panel Pterodactyl</h3>
+        <div class="list-grid" id="list-panel"></div>
+    </div>
+
+    <div id="jasa" class="page">
+        <h3 style="margin-top: 0;">Layanan Jasa Digital</h3>
+        <div class="list-grid" id="list-jasa"></div>
+    </div>
+
+    <div id="akun" class="page">
+        <h3 style="margin-top: 0;">Kategori Akun Game</h3>
+        <div id="akun-categories">
+            <div class="cat-card" onclick="showGameList('Roblox')"><span>Akun Roblox</span> <i data-lucide="chevron-right"></i></div>
+            <div class="cat-card" onclick="showGameList('Free Fire')"><span>Akun Free Fire</span> <i data-lucide="chevron-right"></i></div>
+            <div class="cat-card" onclick="showGameList('PUBG Mobile')"><span>Akun PUBG Mobile</span> <i data-lucide="chevron-right"></i></div>
+            <div class="cat-card" onclick="showGameList('Mobile Legends')"><span>Akun Mobile Legends</span> <i data-lucide="chevron-right"></i></div>
+        </div>
+        <div id="akun-detail-view" style="display: none;">
+            <button onclick="backToCategories()" style="background:none; border:none; color:var(--primary); padding:0; margin-bottom:15px; cursor:pointer; display:flex; align-items:center; gap:5px; font-weight:bold;">
+                <i data-lucide="arrow-left" size="18"></i> KEMBALI
+            </button>
+            <h4 id="game-title" style="color: var(--primary); margin-bottom: 15px;"></h4>
+            <div class="list-grid" id="list-item-akun"></div>
+        </div>
+    </div>
+
+    <div id="domain" class="page">
+        <h3 style="margin-top: 0;">Katalog Domain</h3>
+        <div class="list-grid" id="list-domain"></div>
+    </div>
+
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="nav('home')"><i data-lucide="home"></i><span>Beranda</span></button>
+        <button class="nav-item" onclick="nav('panel')"><i data-lucide="server"></i><span>Panel</span></button>
+        <button class="nav-item" onclick="nav('jasa')"><i data-lucide="wrench"></i><span>Jasa</span></button>
+        <button class="nav-item" onclick="nav('akun')"><i data-lucide="gamepad-2"></i><span>Akun</span></button>
+        <button class="nav-item" onclick="nav('domain')"><i data-lucide="globe"></i><span>Domain</span></button>
+    </nav>
+
+    <script>
+        const noWA = "6281929461281";
+
+        const dataPanel = [
+            { nama: "Panel RAM 1GB", harga: "Rp 1.000" },
+            { nama: "Panel RAM 2GB", harga: "Rp 2.000" },
+            { nama: "Panel RAM 3GB", harga: "Rp 3.000" },
+            { nama: "Panel RAM 4GB", harga: "Rp 4.000" },
+            { nama: "Panel RAM 5GB", harga: "Rp 5.000" },
+            { nama: "Panel RAM 6GB", harga: "Rp 6.000" },
+            { nama: "Panel RAM 7GB", harga: "Rp 7.000" },
+            { nama: "Panel RAM 8GB", harga: "Rp 8.000" },
+            { nama: "Panel RAM 9GB", harga: "Rp 9.000" },
+            { nama: "Panel RAM 10GB", harga: "Rp 10.000" },
+            { nama: "Panel UNLIMITED", harga: "Rp 11.000" },
+            { nama: "RESELLER PANEL", harga: "Rp 12.000" },
+            { nama: "ADMIN PANEL", harga: "Rp 15.000" }
+        ];
+
+        const dataJasa = [
+            { nama: "Jasa Deploy Web", harga: "Rp 5.000" },
+            { nama: "Base Web", harga: "Rp 5.000" },
+            { nama: "Web Bucin", harga: "Rp 15.000" },
+            { nama: "Web Linktree", harga: "Rp 10.000" },
+            { nama: "Fix Error Script", harga: "Rp 5.000" },
+            { nama: "Install Egg Bot WA", harga: "Rp 5.000" },
+            { nama: "Install Panel Ptero", harga: "Rp 10.000" }
+        ];
+
+        const dataDomain = [
+            { nama: "Domain xyzid.store", harga: "Rp 35.000" },
+            { nama: "Domain .ID", harga: "Rp 225.000" },
+            { nama: "Domain .STORE", harga: "Rp 15.000" }
+        ];
+
+        const dataAkun = {
+            'Roblox': [
+                { nama: "Bloxfruit Max", spek: "Lv Max, Godhuman, Soul Guitar, Fruit Awaken", harga: "Rp 50.000" },
+                { nama: "Akun Starter", spek: "Lv 1000+, Banyak Sword & Melee", harga: "Rp 15.000" }, 
+                { nama: "Akun Ghostfin", spek: "Lv 300+, Ares Ghostfin Dan Astral", harga: "Rp 15.000" }
+            ],
+            'Free Fire': [
+                { nama: "Akun Old S2", spek: "Set Bundle Rare, Skin Senjata Lobby, Tas S2", harga: "Rp 150.000" },
+                { nama: "Akun Vault Rame", spek: "Bundle Full Set, Emote Booyah, Senjata Upgrade", harga: "Rp 50.000" }
+            ],
+            'PUBG Mobile': [
+                { nama: "Akun Glacier Max", spek: "M416 Glacier Max, Skin Mobil Tesla, Set Baju X", harga: "Rp 400.000" }
+            ],
+            'Mobile Legends': [
+                { nama: "Akun Mythic Glory", spek: "Skin Collector 3, Skin Epic Limited 12, All Hero", harga: "Rp 250.000" },
+                { nama: "Akun Smurf High WR", spek: "WR 80%+, Hero Core Lengkap, Emblem Max", harga: "Rp 35.000" }
+            ]
+        };
+
+        function renderItems(data, elementId) {
+            const container = document.getElementById(elementId);
+            container.innerHTML = data.map(p => `
+                <div class="item-card">
+                    <div class="item-info"><h4>${p.nama}</h4><p>${p.harga}</p></div>
+                    <button class="btn-beli" onclick="beli('${p.nama}', '${p.harga}')">Beli</button>
+                </div>
+            `).join('');
+        }
+
+        function showGameList(game) {
+            document.getElementById('akun-categories').style.display = 'none';
+            document.getElementById('akun-detail-view').style.display = 'block';
+            document.getElementById('game-title').innerText = "LIST " + game.toUpperCase();
+            
+            const container = document.getElementById('list-item-akun');
+            container.innerHTML = dataAkun[game].map(a => `
+                <div class="item-card">
+                    <div class="item-info">
+                        <h4>${a.nama}</h4>
+                        <div class="spek">${a.spek}</div>
+                        <p>${a.harga}</p>
+                    </div>
+                    <button class="btn-beli" onclick="beli('${a.nama} (${game})', '${a.harga}')">Beli</button>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function backToCategories() {
+            document.getElementById('akun-categories').style.display = 'block';
+            document.getElementById('akun-detail-view').style.display = 'none';
+        }
+
+        function nav(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            event.currentTarget.classList.add('active');
+            if(pageId === 'akun') backToCategories();
+            window.scrollTo(0,0);
+        }
+
+        function beli(nama, harga) {
+            const pesan = encodeURIComponent(`Halo Admin Reyz4You,\n\nSaya ingin order produk ini:\n📦 Nama: *${nama}*\n💰 Harga: *${harga}*\n\nMohon petunjuk pembayarannya.`);
+            window.open(`https://wa.me/${noWA}?text=${pesan}`, '_blank');
+        }
+
+        // Jalankan saat load
+        lucide.createIcons();
+        renderItems(dataPanel, 'list-panel');
+        renderItems(dataJasa, 'list-jasa');
+        renderItems(dataDomain, 'list-domain');
+    </script>
+</body>
+</html>
